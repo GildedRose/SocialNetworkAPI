@@ -10,7 +10,7 @@ const userController = {
         })
         .catch((err) => {
             console.log(err);
-            res.status(400);
+            res.status(404);
         });
     },
     getSingleUser({ params }, res) {
@@ -21,7 +21,7 @@ const userController = {
             .then (dbUserData => res.json(dbUserData))
             .catch((err) => {
                 console.log(err);
-                res.status(400)
+                res.status(404)
             });
     },
     createUser({ body }, res) {
@@ -45,7 +45,7 @@ const userController = {
             .then(dbUserData => res.json(dbUserData))
             .catch(err => res.json(err));
     },
-    addFriend({params, body }, res) {
+    addFriend({ params }, res) {
         User.findOneAndUpdate({ _id: params.userId }, { $addToSet: { friends: params.friendId } }, { new: true })
             .then((dbUserData) => {
                 if (!dbUserData) {
